@@ -1,0 +1,7 @@
+{
+  "name": "MedilcalRecord",
+  "version": "0.0.0",
+  "private": true,
+  "main": "medicalRecord.js",
+  "license": "MIT"
+}

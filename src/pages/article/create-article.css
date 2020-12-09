@@ -1,0 +1,22 @@
+.article-line {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 6px;
+    margin-right: 33px;
+    margin-bottom: 10px;
+}
+
+.article-line2 {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 6px;
+    margin-bottom: 10px;
+}
+
+.article-key {
+    width: 100px;
+}
+
+.article-value {
+    border-radius: 13px;
+}

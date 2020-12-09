@@ -1,0 +1,32 @@
+
+.emptySchedule {
+  opacity: 0.2;
+}
+
+.bookedSchedule {
+  color: red;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 2px;
+}
+
+.availableSchedule {
+  color: green
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.topFlexItem {
+    align-items: flex-start;
+}
+
+.removeButton {
+    background-color: #ffffff;
+    color: brown;
+    font-weight: bold;
+    padding: 1px 6px;
+}
+

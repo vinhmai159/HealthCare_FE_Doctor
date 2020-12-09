@@ -1,0 +1,22 @@
+.article-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.article-cell {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.title {
+    width: 200px;
+}
+
+.create-at {
+    width: 150px;
+}
+
+.btn-search {
+    display: inline-block;
+    transform:  translateX(-110%);
+}
