@@ -31,9 +31,9 @@ class ScheduleDetail extends React.Component {
         .catch((error) => Alert(error));
     }
 
-    completeMedicalRecord(bookingId, scheduleId) {
+    completeMedicalRecord(e, bookingId, scheduleId) {
         const token = localStorage.getItem('accessToken');
-        Axios.put('http://localhost:3069/booking/complete-medical-record', {
+        Axios.post('http://localhost:3069/booking/complete-medical-record', {
             symptoms: this.state.symptoms,
             diagnostic: this.state.diagnostic,
             prescription: this.state.prescription
@@ -46,7 +46,21 @@ class ScheduleDetail extends React.Component {
             }
         })
         .then(() => window.location.reload(false))
-        .catch((error) => Alert(error));
+        .catch((error) => alert(error.response.data.message));
+    }
+
+    rejectBooking(e, bookingId, scheduleId) {
+        const token = localStorage.getItem('accessToken');
+        Axios.post('http://localhost:3069/booking/reject-booking', {}, {
+            headers: {
+                'x-access-token': `bearer ${token}` 
+            },
+            params: {
+                bookingId, scheduleId
+            }
+        })
+        .then(() => window.location.reload(false))
+        .catch((error) => alert(error.response.data.message));
     }
 
     handleRefresh = (e) => {
@@ -61,27 +75,33 @@ class ScheduleDetail extends React.Component {
         }
         return ( 
             <div className="user-detail">
-                <form onSubmit={this.completeMedicalRecord(this.state.booking.id, this.props.scheduleId)}>
+                <form inline >
                     <div >
                         <div className="user-detail-row">
-                            <span className="key">fullName:</span>
-                            <span className="value">{this.state.booking.user.fistName}</span>
+                            <span className="key">Date:</span>
+                            <span className="value">{new Date(this.state.booking.date).toString().slice(0,16)}</span>
+                            <Button color={"warning"} type="button" className="margin-20 mr-xs" size="sm" onClick={e => this.rejectBooking(e, this.state.booking.id, this.props.scheduleId)}>
+                                Expired
+                            </Button>
                         </div>
                         <div className="user-detail-row">
-                            <span className="key">birthday:</span>
+                            <span className="key">FullName:</span>
+                            <span className="value">{this.state.booking.user.fistName} {this.state.booking.user.lastName}</span>
+                        </div>
+                        <div className="user-detail-row">
+                            <span className="key">Birthday:</span>
                             <span className="value">{this.state.booking.user.birthday}</span>
                         </div>
                         <div className="user-detail-row">
-                            <span className="key">gender:</span>
+                            <span className="key">Gender:</span>
                             <span className="value">{this.state.booking.user.gender}</span>
                         </div>
                         <div className="user-detail-row">
-                            <span className="key">address:</span>
+                            <span className="key">Address:</span>
                             <span className="value">{this.state.booking.user.address}</span>
                         </div>
                         <div className="user-detail-row">
-                            <span className="key">examination schedule:</span>
-                            <span className="value">Mai The Vinh</span>
+                            <span className="key"><strong>Examination schedule</strong></span>
                         </div>
                         <div className="user-detail-row">
                             <span className="key input">symptoms:</span>
@@ -115,7 +135,7 @@ class ScheduleDetail extends React.Component {
                         </div>
                     </div>
                     <div className="schedule-action">
-                        <Button color={"warning"} type="button" className="mr-xs" size="sm">Complete examination process</Button>
+                        <Button color={"warning"} type="button" className="mr-xs" size="sm" onClick={e => this.completeMedicalRecord(e, this.state.booking.id, this.props.scheduleId)}>Complete examination process</Button>
                         <Button color={""} type="button" className="mr-xs" size="sm" onClick={this.handleRefresh} >Cancel</Button>
                     </div>
                 </form>
